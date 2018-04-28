@@ -8,7 +8,17 @@ import java.util.List;
 
 public class Movie implements Parcelable {
 
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
 
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
     private static final String BASE_POSTER_PATH = "http://image.tmdb.org/t/p/w500";
     @SerializedName("vote_count")
     @Expose
@@ -53,7 +63,7 @@ public class Movie implements Parcelable {
     @Expose
     private String releaseDate;
 
-    protected Movie(Parcel in) {
+    private Movie(Parcel in) {
 
         voteCount = in.readInt();
         id = in.readInt();
@@ -69,18 +79,6 @@ public class Movie implements Parcelable {
         overview = in.readString();
         releaseDate = in.readString();
     }
-
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
-        @Override
-        public Movie createFromParcel(Parcel in) {
-            return new Movie(in);
-        }
-
-        @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
-        }
-    };
 
     public int getVoteCount() {
         return voteCount;

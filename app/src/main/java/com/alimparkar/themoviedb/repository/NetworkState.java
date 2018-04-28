@@ -5,16 +5,9 @@ package com.alimparkar.themoviedb.repository;
  */
 
 public class NetworkState {
-    public enum STATUS {
-        RUNNING,
-        SUCCESS,
-        FAILED
-    }
-
-    private STATUS status;
-    private String message;
-
-    public NetworkState(STATUS status, String message) {
+    private final STATUS status;
+    private final String message;
+    NetworkState(STATUS status, String message) {
         this.status = status;
         this.message = message;
     }
@@ -30,5 +23,9 @@ public class NetworkState {
     @Override
     public String toString() {
         return "NetworkState{" + "status=" + status.name() + ", message='" + message + '\'' + '}';
+    }
+
+    public enum STATUS {
+        RUNNING, SUCCESS, FAILED
     }
 }

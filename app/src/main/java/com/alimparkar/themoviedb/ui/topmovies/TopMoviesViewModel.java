@@ -6,8 +6,8 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
 import com.alimparkar.themoviedb.models.Movie;
-import com.alimparkar.themoviedb.repository.MoviesDataSourceFactory;
 import com.alimparkar.themoviedb.repository.MoviesDataSource;
+import com.alimparkar.themoviedb.repository.MoviesDataSourceFactory;
 import com.alimparkar.themoviedb.repository.NetworkState;
 import javax.inject.Inject;
 import timber.log.Timber;
@@ -17,7 +17,7 @@ import timber.log.Timber;
  */
 public class TopMoviesViewModel extends ViewModel {
 
-    private MoviesDataSourceFactory dataSourceFactory;
+    private final MoviesDataSourceFactory dataSourceFactory;
     private LiveData<PagedList<Movie>> data;
     private LiveData<NetworkState> networkState;
 
@@ -27,7 +27,7 @@ public class TopMoviesViewModel extends ViewModel {
         fetchData();
     }
 
-    public void fetchData() {
+    private void fetchData() {
         Timber.d("Fetching data");
         PagedList.Config pageConfig = getPageListConfig();
         LivePagedListBuilder<Integer, Movie> pagedListBuilder =
@@ -46,17 +46,17 @@ public class TopMoviesViewModel extends ViewModel {
             .build();
     }
 
-    public LiveData<PagedList<Movie>> getMovies() {
+    LiveData<PagedList<Movie>> getMovies() {
         return data;
     }
 
-    public LiveData<NetworkState> getNetworkState() {
+    LiveData<NetworkState> getNetworkState() {
         return networkState;
     }
 
-    public void retry() {
+    void retry() {
         MoviesDataSource source = dataSourceFactory.getSourceData().getValue();
-        if(source != null) {
+        if (source != null) {
             source.invalidate();
         }
     }

@@ -28,9 +28,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by alimparkar on 23/04/18.
  */
 @Module
-public class NetworkModule {
+class NetworkModule {
 
-    public static final String BASE_URL = "https://api.themoviedb.org/3/";
+    private static final String BASE_URL = "https://api.themoviedb.org/3/";
 
     /**
      * utility to create RestAdapter instances
@@ -38,7 +38,7 @@ public class NetworkModule {
      * @return RestApi interface
      */
     @Provides
-    public ApiService provideApi(Retrofit retrofit) {
+    ApiService provideApi(Retrofit retrofit) {
         return retrofit.create(ApiService.class);
     }
 
@@ -47,7 +47,7 @@ public class NetworkModule {
      * the Service instance for making HTTP requests.
      */
     @Provides
-    public Retrofit provideRetrofit(OkHttpClient httpClient, GsonConverterFactory converterFactory,
+    Retrofit provideRetrofit(OkHttpClient httpClient, GsonConverterFactory converterFactory,
         CallAdapter.Factory rxErrorHandler) {
 
         return new Retrofit.Builder().client(httpClient)
@@ -58,17 +58,17 @@ public class NetworkModule {
     }
 
     @Provides
-    public CallAdapter.Factory provideCallAdapterFactory() {
+    CallAdapter.Factory provideCallAdapterFactory() {
         return RxJava2CallAdapterFactory.create();
     }
 
     @Provides
-    public GsonConverterFactory provideConverterFactory(Gson gson) {
+    GsonConverterFactory provideConverterFactory(Gson gson) {
         return GsonConverterFactory.create(gson);
     }
 
     @Provides
-    public OkHttpClient provideOkHttpClient(@Named("logger") Interceptor logger,
+    OkHttpClient provideOkHttpClient(@Named("logger") Interceptor logger,
         @Named("request") Interceptor sessionRequestInterceptor) {
 
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder().followSslRedirects(true)
@@ -86,7 +86,7 @@ public class NetworkModule {
 
     @Provides
     @Named("logger")
-    public Interceptor provideLoggingInterceptor() {
+    Interceptor provideLoggingInterceptor() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY
             : HttpLoggingInterceptor.Level.NONE);
@@ -97,17 +97,12 @@ public class NetworkModule {
     @Provides
     @Singleton
     @Named("request")
-    public Interceptor provideSessionRequestInterceptor(ConnectivityHelper helper) {
+    Interceptor provideSessionRequestInterceptor(ConnectivityHelper helper) {
         return new RequestInterceptor(helper);
     }
 
     @Provides
-    public ConnectivityHelper provideConnectivityHelper(ConnectivityManager connectivityManager) {
-        return new ConnectivityHelper(connectivityManager);
-    }
-
-    @Provides
-    public ConnectivityManager provideConnectivityManager(Context context) {
+    ConnectivityManager provideConnectivityManager(Context context) {
         return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
@@ -117,7 +112,7 @@ public class NetworkModule {
      * @return Gson
      */
     @Provides
-    public Gson provideGson() {
+    Gson provideGson() {
         return new GsonBuilder()
             //.registerTypeAdapterFactory(new JsonTypeAdapterFactory())
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
@@ -125,7 +120,7 @@ public class NetworkModule {
 
     @Provides
     @Named("apikey")
-    public String provideApiKey() {
+    String provideApiKey() {
         return BuildConfig.API_KEY;
     }
 }

@@ -14,11 +14,9 @@ import timber.log.Timber;
  */
 public class MoviesDataSourceFactory extends DataSource.Factory<Integer, Movie> {
 
-
+    private final ApiService apiService;
+    private final String apiKey;
     private MutableLiveData<MoviesDataSource> sourceData;
-
-    private ApiService apiService;
-    private String apiKey;
 
     @Inject
     public MoviesDataSourceFactory(ApiService apiService, @Named("apikey") String apiKey) {
@@ -31,6 +29,7 @@ public class MoviesDataSourceFactory extends DataSource.Factory<Integer, Movie> 
      * DONOT INJECT. As we need to create a new object for force refresh
      *
      * Create a new datasource.
+     *
      * @return a new MovieDataSource
      */
     private MoviesDataSource getMoviesDataSource() {

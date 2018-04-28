@@ -10,7 +10,7 @@
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>
 
         <item name="android:textViewStyle">@style/App.Widget.TextView</item>
-        
+
     </style>
 
     <style name="App"/>

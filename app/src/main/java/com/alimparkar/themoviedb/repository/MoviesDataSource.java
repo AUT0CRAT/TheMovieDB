@@ -17,11 +17,11 @@ import timber.log.Timber;
 public class MoviesDataSource extends PageKeyedDataSource<Integer, Movie> {
     private static final NetworkState LOADING = new NetworkState(NetworkState.STATUS.RUNNING, null);
     private static final NetworkState LOADED = new NetworkState(NetworkState.STATUS.SUCCESS, null);
-    private ApiService apiService;
-    private String apiKey;
-    private MutableLiveData<NetworkState> networkState;
+    private final ApiService apiService;
+    private final String apiKey;
+    private final MutableLiveData<NetworkState> networkState;
 
-    public MoviesDataSource(ApiService apiService, @Named("apikey") String apiKey) {
+    MoviesDataSource(ApiService apiService, @Named("apikey") String apiKey) {
         this.apiService = apiService;
         this.apiKey = apiKey;
 
@@ -33,10 +33,11 @@ public class MoviesDataSource extends PageKeyedDataSource<Integer, Movie> {
         @NonNull LoadInitialCallback<Integer, Movie> callback) {
         Timber.d("Initial load");
         networkState.postValue(LOADING);
-        performInitialFetch(1, callback);
+        performInitialFetch(callback);
     }
 
-    private void performInitialFetch(int page, LoadInitialCallback<Integer, Movie> callback) {
+    private void performInitialFetch(LoadInitialCallback<Integer, Movie> callback) {
+        int page = 1;
         apiService.getTopMovies(apiKey, page)
             .map(TopMovieResponse::getResults)
             .subscribeOn(Schedulers.io())

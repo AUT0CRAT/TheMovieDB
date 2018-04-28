@@ -24,7 +24,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
@@ -36,19 +36,18 @@ public class MovieDetailActivity extends AppCompatActivity {
                 DataBindingUtil.setContentView(this, R.layout.movie_detail);
             movieDetailBinding.setMovie(movie);
 
-            if(actionBar != null) {
+            if (actionBar != null) {
                 actionBar.setTitle(movie.getTitle());
             }
         } else {
             showError(getString(R.string.failed_to_load_movie));
             finish();
         }
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);

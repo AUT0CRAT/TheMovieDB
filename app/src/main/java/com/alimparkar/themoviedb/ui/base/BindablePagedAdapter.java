@@ -9,9 +9,10 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 /**
- * Created by alimparkar on 23/04/18.
+ * Base PagedListAdapter with support for DataBinding
+ *
+ * @param <MODEL> the data type that would be used as the backed data for the adapter
  */
-
 public abstract class BindablePagedAdapter<MODEL>
     extends PagedListAdapter<MODEL, BindingViewHolder<MODEL>> {
 
@@ -44,7 +45,7 @@ public abstract class BindablePagedAdapter<MODEL>
         }
     }
 
-    abstract public int getLayoutId(int viewType);
+    abstract protected int getLayoutId(int viewType);
 
     public void setListener(BindingViewHolder.OnItemClickListener<MODEL> listener) {
         this.listener = listener;

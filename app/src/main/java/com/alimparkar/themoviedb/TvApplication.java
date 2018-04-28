@@ -5,7 +5,6 @@ import android.app.Application;
 import com.alimparkar.themoviedb.di.ApplicationComponent;
 import com.alimparkar.themoviedb.di.DaggerApplicationComponent;
 import com.alimparkar.themoviedb.di.modules.ApplicationModule;
-import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import javax.inject.Inject;

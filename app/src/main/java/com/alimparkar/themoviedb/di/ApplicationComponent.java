@@ -18,5 +18,4 @@ import javax.inject.Singleton;
 @Singleton
 public interface ApplicationComponent {
     void inject(TvApplication application);
-
 }

@@ -2,19 +2,19 @@ package com.alimparkar.themoviedb.network;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import javax.inject.Inject;
 
-/**
- * Created by alimparkar on 23/04/18.
- */
 
 public class ConnectivityHelper {
 
-    private ConnectivityManager connectivityManager;
+    private final ConnectivityManager connectivityManager;
 
+    @Inject
     public ConnectivityHelper(ConnectivityManager connectivityManager) {
         this.connectivityManager = connectivityManager;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public boolean isOnline() {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         boolean isAvailable = false;

@@ -12,14 +12,14 @@ import dagger.Provides;
 @Module(subcomponents = ViewModelSubComponent.class)
 public class ApplicationModule {
 
-    private Application application;
+    private final Application application;
 
     public ApplicationModule(Application application) {
         this.application = application;
     }
 
     @Provides
-    public Context provideContext() {
+    Context provideContext() {
         return application;
     }
 

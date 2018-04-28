@@ -8,7 +8,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import com.alimparkar.themoviedb.Constants;
 import com.alimparkar.themoviedb.R;
 import com.alimparkar.themoviedb.databinding.MovieListBinding;

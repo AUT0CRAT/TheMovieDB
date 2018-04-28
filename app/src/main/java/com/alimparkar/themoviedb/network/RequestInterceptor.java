@@ -12,7 +12,7 @@ import okhttp3.Response;
 
 public class RequestInterceptor implements Interceptor {
 
-    private ConnectivityHelper connectivityHelper;
+    private final ConnectivityHelper connectivityHelper;
 
     public RequestInterceptor(ConnectivityHelper connectivityHelper) {
         this.connectivityHelper = connectivityHelper;

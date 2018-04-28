@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">The Movie DB</string>
+    <string name="failed_to_load_movie">Opps Something went wrong</string>
+</resources>

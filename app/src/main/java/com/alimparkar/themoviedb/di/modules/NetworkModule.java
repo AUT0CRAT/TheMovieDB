@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by alimparkar on 23/04/18.
  */
 @Module
-class NetworkModule {
+public class NetworkModule {
 
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
 

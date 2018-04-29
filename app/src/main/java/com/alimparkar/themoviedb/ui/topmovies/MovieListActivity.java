@@ -31,6 +31,8 @@ public class MovieListActivity extends AppCompatActivity {
 
     private TopMoviesViewModel viewModel;
 
+    private int dataSize;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
@@ -41,10 +43,12 @@ public class MovieListActivity extends AppCompatActivity {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(TopMoviesViewModel.class);
         binding.setViewmodel(viewModel);
         binding.setAdapter(adapter);
+        binding.setDataSize(dataSize);
 
         fetchAndObserveData();
         adapter.setListener(this::clickHandler);
         binding.refreshLayout.setOnRefreshListener(viewModel::retry);
+        binding.noContent.setOnRefreshListener(viewModel::retry);
     }
 
     private void clickHandler(Movie movie) {
@@ -61,22 +65,28 @@ public class MovieListActivity extends AppCompatActivity {
     }
 
     private void listChanged(PagedList<Movie> movies) {
-        //TODO handle empty response
         adapter.setMovies(movies);
     }
 
     private void networkStateChanged(NetworkState networkState) {
         Timber.d("Network state change : " + networkState);
+        dataSize = adapter.getItemCount();
+        Timber.d("Adapter size : %s" , dataSize);
+        binding.setDataSize(dataSize);
+
         switch (networkState.getStatus()) {
             case RUNNING:
                 binding.refreshLayout.setRefreshing(true);
+                binding.noContent.setRefreshing(true);
                 break;
             case FAILED:
                 binding.refreshLayout.setRefreshing(false);
+                binding.noContent.setRefreshing(false);
                 showError(networkState.getMessage());
                 break;
             case SUCCESS:
                 binding.refreshLayout.setRefreshing(false);
+                binding.noContent.setRefreshing(false);
         }
     }
 

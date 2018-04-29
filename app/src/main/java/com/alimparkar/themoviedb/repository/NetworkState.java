@@ -7,7 +7,8 @@ package com.alimparkar.themoviedb.repository;
 public class NetworkState {
     private final STATUS status;
     private final String message;
-    NetworkState(STATUS status, String message) {
+
+    public NetworkState(STATUS status, String message) {
         this.status = status;
         this.message = message;
     }
